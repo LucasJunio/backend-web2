@@ -5,7 +5,7 @@ const session = require('express-session');
 const validator = require('express-validator');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/web2');
+mongoose.connect('mongodb://lucas:Luc@s1102@ds127644.mlab.com:27644/web2');
 
 const imageRoutes = require('./routes/image');
 const userRoutes = require('./routes/users');
@@ -16,7 +16,7 @@ global.uploadsDir = 'public/uploads';
 var cors = require('cors');
 
 app.use(cors({
-	origin: 'http://localhost:3000',
+	origin: 'https://frontend-web2.herokuapp.com',
 	credentials: true,
 }));
 
