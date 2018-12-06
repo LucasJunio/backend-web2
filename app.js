@@ -5,7 +5,7 @@ const session = require('express-session');
 const validator = require('express-validator');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://lucas:Luc@s1102@ds127644.mlab.com:27644/web2');
+mongoose.connect('mongodb://junio:lucas123456@ds127644.mlab.com:27644/web2');
 
 const imageRoutes = require('./routes/image');
 const userRoutes = require('./routes/users');
