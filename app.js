@@ -53,6 +53,6 @@ app.use('/auth', authRoutes);
 
 app.use('/', express.static(__dirname + '/public/build/'));
 
-app.listen(443, function () {
+app.listen(process.env.PORT || 443, function () {
 	console.log('Server running at http://localhost:3001');
 });
