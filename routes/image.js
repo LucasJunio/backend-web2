@@ -49,7 +49,6 @@ routes.post('/', (req, res) => {
 			let ext = file.originalname.substr(file.originalname.lastIndexOf('.') + 1);
 			if (ext !== 'png' && ext !== 'jpg' && ext !== 'gif' && ext !== 'jpeg') {
 				console.log(ext)
-				return callback(new Error('Only images are allowed'))
 			}
 			callback(null, true)
 		}
@@ -61,10 +60,10 @@ routes.post('/', (req, res) => {
 		} else {
 			console.log("File uploaded");
 			let user = await User.findOne({ _id: req.session.user._id })
-			user.images.push({ filename: req.file.filename })
+			user.images.push({ filename: req.file.data.link })
 			user.save()
 
-			console.log(req.file.filename)
+			console.log(req.file.data.link)
 			res.send({ success: true, msg: 'File is uploaded' })
 		}
 	})
