@@ -13,18 +13,17 @@ const ImgurStorage = require('multer-storage-imgur');
 routes.get('/', async (req, res) => {
 	let images = await User.findOne({ _id: req.session.user._id })
 
-	res.send({
-		images: images.images
-	});
-});
+	if (req.query.q) {
+		let query = req.query.q;
 
-routes.get('/query', async (req, res) => {
-	let images = await User.findOne({ _id: req.session.user._id })
-	let query = req.query.q;
-
-	res.send({
-		images: images.images.filter(el => el.filename.includes(query))
-	});
+		res.send({
+			images: images.images.filter(el => el.filename.includes(query))
+		});
+	} else {
+		res.send({
+			images: images.images
+		});
+	}
 });
 
 routes.post('/', (req, res) => {

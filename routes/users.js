@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require('../model/user');
 
 // Realiza o cadastro de usuarios
-router.post('/register', (req, res) => {
+router.post('/', (req, res) => {
 	console.log('received');
 	let email = req.body.email;
 	let name = req.body.name;
