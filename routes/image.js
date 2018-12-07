@@ -28,7 +28,7 @@ routes.get('/query', async (req, res) => {
 
 routes.post('/', (req, res) => {
 	imgur.uploadBase64(req.body.myImage)
-    .then(function (json) {
+    .then(async function (json) {
         console.log(json.data.link);
 		console.log("File uploaded");
 		let user = await User.findOne({ _id: req.session.user._id })
