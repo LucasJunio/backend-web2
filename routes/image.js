@@ -3,6 +3,11 @@ const User = require('../model/user');
 const uploader = require('../dao/uploader');
 const files = require('../dao/files');
 var multer = require('multer');
+var imgur = require('imgur');
+
+// Setting
+imgur.setClientId('a7db86935be50db');
+imgur.setAPIUrl('https://api.imgur.com/3/');
 
 routes.get('/', async (req, res) => {
 	let images = await User.findOne({ _id: req.session.user._id })
@@ -22,7 +27,22 @@ routes.get('/query', async (req, res) => {
 });
 
 routes.post('/', (req, res) => {
-	var upload = multer({
+	imgur.uploadBase64(req.body.myImage)
+    .then(function (json) {
+        console.log(json.data.link);
+		console.log("File uploaded");
+		let user = await User.findOne({ _id: req.session.user._id })
+		user.images.push({ filename: json.data.link })
+		user.save()
+
+		console.log(req.file.filename)
+		res.send({ success: true, msg: 'File is uploaded' })
+	})
+    .catch(function (err) {
+        console.error(err.message);
+		res.send({ error: 'error while trying to upload file to imgur' })
+    });
+/*	var upload = multer({
 		storage: uploader.storage,
 		fileFilter: function (req, file, callback) {
 			let ext = file.originalname.substr(file.originalname.lastIndexOf('.') + 1);
@@ -46,7 +66,7 @@ routes.post('/', (req, res) => {
 			console.log(req.file.filename)
 			res.send({ success: true, msg: 'File is uploaded' })
 		}
-	})
+	})*/
 })
 
 
