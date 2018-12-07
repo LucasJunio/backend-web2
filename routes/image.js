@@ -27,7 +27,7 @@ routes.get('/query', async (req, res) => {
 });
 
 routes.post('/', (req, res) => {
-	imgur.uploadBase64(req.body.myImage)
+	imgur.uploadFile(req.body.myImage)
     .then(async function (json) {
         console.log(json.data.link);
 		console.log("File uploaded");
